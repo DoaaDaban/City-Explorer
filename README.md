@@ -76,21 +76,35 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+This application for getting the map location for any contry worldwide.
+Problrm domain:
+To connect our react app with locationIQ API in order to get the location of any city.
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+The steps:
+first of all, the user have to connect his repo with hid react app, and carefully read the documentaion for LocationIQ api, and get the url (http request), then send the http request for the Location Api server in order to get the response via axios library, and the user have to change the key and the params.
 
 ## Architecture
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+I used JS,CSS,HTML, locationIQ API, AXIOS library.
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
+ 8-2-2021 1:15am-Application now has a fully-functional express server, with a GET route for the location resource.
+
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+1- [LocationIQ](https://locationiq.com/)
+
+2- [AXIOS library](https://www.npmjs.com/package/axios)
+
+
+## web request-response cycle diagram
+![web request-response cycle](public/webRequest.PNG)
 
 
 Name of feature: __________LocationIQ API______________________
@@ -99,8 +113,10 @@ Estimate of time needed to complete: __5h___
 
 Start time: __2h___
 
-Finish time: _____
+Finish time: __1:20AM___
 
-Actual time needed to complete: _____
+Actual time needed to complete: _8h____
 
-https://inspiring-sammet-4c9540.netlify.app
+
+my deployed link >>
+city-exp-app.netlify.app
