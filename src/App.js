@@ -5,31 +5,69 @@ import {Col} from 'react-bootstrap';
 import {Row} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import axios from 'axios';
+import './App.css';
 
 
 class App extends React.Component{
 
-  getLocationData =(event)=>{
+  constructor(props){
+    super(props);
+    this.state={
+     displayName :'',
+     lat :'',
+     lon :'',
+     showMap:false,
+     errMsg: "Unable to geocode",
+     displayErr:false
+
+    }
+  }
+
+  getLocationData = async(event)=>{
     event.preventDefault();
 
    let cityName= event.target.city.value;
   //  console.log(cityName);
 
-  let URL=`https://us1.locationiq.com/v1/search.php?key=pk.7e55b9ea04992ecce29708d7192e908b&q=${cityName}&format=json`;
+  let URL=`https://us1.locationiq.com/v1/search.php?key=pk.03ab14cb32d5a7eb5a3515ddef8ba0af&q=${cityName}&format=json`;
 
-  let locResult = axios.get(URL);  // send req to locationIQ API
-
-
+  try{
+     
+  let locResult = await axios.get(URL);  // send req to locationIQ API
+  // console.log(locResult.data[0].display_name, locResult.data[0].type);
+   
+   this.setState({
+     displayName : locResult.data[0].display_name,
+     lat : locResult.data[0].lat,
+     lon: locResult.data[0].lon,
+     showMap: true,
+ 
+   })
   }
+
+  catch{
+    this.setState({
+      // displayMap:false,
+      displayErr:true,
+
+    })
+  }
+  
+}
 
 
 
   render(){
     return(
       <>
+      <div>
 <h1>
   City Explorer
 </h1>
+
+<h5>
+  where would you like to explore?
+</h5>
 
 <Form onSubmit={this.getLocationData}>
   <Row className="align-items-center">
@@ -40,10 +78,29 @@ class App extends React.Component{
       <Form.Control id="inlineFormInputName" placeholder="Enter City" name='city' />
     </Col>
     <Col xs="auto" className="my-1">
-      <Button type="submit">Get Location</Button>
+      <Button type="submit">Explore</Button>
     </Col>
   </Row>
 </Form>
+
+<p>
+{this.state.displayName}
+</p>
+
+{
+  this.state.showMap && // (false && 'doaa') >>> the truthy value (doaa) //  (true && 'doaa') >>> true %% with the same that order 
+<img src={`https://maps.locationiq.com/v3/staticmap?key=pk.03ab14cb32d5a7eb5a3515ddef8ba0af&center=${this.state.lat},${this.state.lon}& zoom=18`} alt="map"/>
+}
+
+{
+  this.state.displayErr && this.state.errMsg
+}
+
+<p>
+&copy;Doa'a Daban
+</p>
+
+</div>
       </>
     )
   }
