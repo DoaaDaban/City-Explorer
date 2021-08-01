@@ -17,7 +17,7 @@ class App extends React.Component{
      lat :'',
      lon :'',
      showMap:false,
-     errMsg: "Unable to geocode",
+     errMsg: 'Unable to geocode',
      displayErr:false
 
     }
@@ -29,7 +29,7 @@ class App extends React.Component{
    let cityName= event.target.city.value;
   //  console.log(cityName);
 
-  let URL=`https://us1.locationiq.com/v1/search.php?key=pk.03ab14cb32d5a7eb5a3515ddef8ba0af&q=${cityName}&format=json`;
+  let URL=`https://us1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=${cityName}&format=json`;
 
   try{
      
@@ -89,7 +89,7 @@ class App extends React.Component{
 
 {
   this.state.showMap && // (false && 'doaa') >>> the truthy value (doaa) //  (true && 'doaa') >>> true %% with the same that order 
-<img src={`https://maps.locationiq.com/v3/staticmap?key=pk.03ab14cb32d5a7eb5a3515ddef8ba0af&center=${this.state.lat},${this.state.lon}& zoom=18`} alt="map"/>
+<img src={`https://maps.locationiq.com/v3/staticmap?key=pk.e997da4c61621084f545d56f650156b1&center=${this.state.lat},${this.state.lon}& zoom=18`} alt="map"/>
 }
 
 {
