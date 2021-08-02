@@ -55,8 +55,6 @@ class App extends React.Component{
   
 }
 
-
-
   render(){
     return(
       <>
@@ -85,6 +83,14 @@ class App extends React.Component{
 
 <p>
 {this.state.displayName}
+</p>
+
+<p>
+lat : {this.state.lat}
+</p>
+
+<p>
+Lon : {this.state.lon}
 </p>
 
 {

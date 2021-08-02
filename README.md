@@ -102,10 +102,8 @@ I used JS,CSS,HTML, locationIQ API, AXIOS library.
 
 2- [AXIOS library](https://www.npmjs.com/package/axios)
 
-
 ## web request-response cycle diagram
 ![web request-response cycle](public/webRequest.PNG)
-
 
 Name of feature: __________LocationIQ API______________________
 
@@ -116,7 +114,6 @@ Start time: __2h___
 Finish time: __1:20AM___
 
 Actual time needed to complete: _8h____
-
 
 my deployed link >>
 city-exp-app.netlify.app
