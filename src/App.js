@@ -31,7 +31,9 @@ class App extends React.Component{
   getLocationData = async(event)=>{
     event.preventDefault();
 
-   let cityName= event.target.cityN.value;
+   let cityName= event.target.cityN.value; // if i was named city-name maybe ill got an error with dot notation , so i have to put target['city-name']
+
+  
   //  console.log(cityName);
 
   let URL=`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${cityName}&format=json`;
@@ -62,8 +64,8 @@ class App extends React.Component{
 ////////////////////////////////=====lab 7=============================== 
 getWeather = async () =>{
 
-
-let URL= `http://localhost:3001/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${this.state.city}`;
+// http://localhost:3001/weather?lat= &lon= &searchQuery=amman
+let URL= `http://localhost:3001/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${this.state.cityName}`;
 
 let weatherData= await axios.get(URL);
 
@@ -135,6 +137,22 @@ Lon : {this.state.lon}
   this.state.displayErr && this.state.errMsg
 }
 
+{!this.state.weatherError ? (
+          <Row className="mb-4">
+            <Row>
+              <h3>The Weather Status :</h3>
+            </Row>
+            <Col>
+              <h2>{this.state.weatherStrings[0]}</h2>
+              <h2>{this.state.weatherStrings[1]}</h2>
+              <h2>{this.state.weatherStrings[2]}</h2>
+            </Col>
+          </Row>
+        ) : (
+          <>
+            <h1>Error:{this.state.weatherText}</h1>
+          </>
+        )}
 <p>
 &copy;Doa'a Daban
 </p>
