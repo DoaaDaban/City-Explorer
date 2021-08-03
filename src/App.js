@@ -62,7 +62,7 @@ class App extends React.Component{
 ////////////////////////////////=====lab 7=============================== 
 getWeather = async () =>{
 
-
+// http://localhost:3001/weather?lat= &lon= &searchQuery=amman
 let URL= `http://localhost:3001/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${this.state.city}`;
 
 let weatherData= await axios.get(URL);
@@ -135,6 +135,22 @@ Lon : {this.state.lon}
   this.state.displayErr && this.state.errMsg
 }
 
+{!this.state.weatherError ? (
+          <Row className="mb-4">
+            <Row>
+              <h1>The Weather Status :</h1>
+            </Row>
+            <Col>
+              <h2>{this.state.weatherStrings[0]}</h2>
+              <h2>{this.state.weatherStrings[1]}</h2>
+              <h2>{this.state.weatherStrings[2]}</h2>
+            </Col>
+          </Row>
+        ) : (
+          <>
+            <h1>Error:{this.state.weatherText}</h1>
+          </>
+        )}
 <p>
 &copy;Doa'a Daban
 </p>
