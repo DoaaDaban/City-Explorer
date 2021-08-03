@@ -12,13 +12,18 @@ class App extends React.Component{
 
   constructor(props){
     super(props);
+
     this.state={
      displayName :'',
      lat :'',
      lon :'',
      showMap:false,
      errMsg: 'Unable to geocode',
-     displayErr:false
+     displayErr:false,
+     city:'',
+     weatherStrings: [],
+     weatherError: false,
+     weatherText: "",
 
     }
   }
@@ -26,10 +31,10 @@ class App extends React.Component{
   getLocationData = async(event)=>{
     event.preventDefault();
 
-   let cityName= event.target.city.value;
+   let cityName= event.target.cityN.value;
   //  console.log(cityName);
 
-  let URL=`https://us1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=${cityName}&format=json`;
+  let URL=`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${cityName}&format=json`;
 
   try{
      
@@ -52,9 +57,37 @@ class App extends React.Component{
 
     })
   }
-  
+  this.getWeather();
+};
+////////////////////////////////=====lab 7=============================== 
+getWeather = async () =>{
+
+
+let URL= `http://localhost:3001/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${this.state.city}`;
+
+let weatherData= await axios.get(URL);
+
+let arrayOfStrings = weatherData.data.map((element) => {
+  return `The Date is : ${element.date} and the description is : ${element.description}`;
+});
+
+try{
+  this.setState({
+    weather: weatherData.data,
+    weatherStrings: arrayOfStrings,
+  });
 }
 
+catch (err) {
+  console.log(err);
+      this.setState({
+        weatherError: true,
+        weatherText: "There is an Error",
+      });
+}
+
+};
+/////////////////////////
   render(){
     return(
       <>
@@ -73,7 +106,7 @@ class App extends React.Component{
       <Form.Label htmlFor="inlineFormInputName" visuallyHidden>
         Name
       </Form.Label>
-      <Form.Control id="inlineFormInputName" placeholder="Enter City" name='city' />
+      <Form.Control id="inlineFormInputName" placeholder="Enter City" name='cityN' />
     </Col>
     <Col xs="auto" className="my-1">
       <Button type="submit">Explore</Button>
