@@ -20,7 +20,6 @@ class App extends React.Component{
      lat :'',
      lon :'',
      errMsg: 'Unable to geocode',
-     //city:'',
      displayErr: false,
      showMap: false,
      showCard: false,
@@ -71,6 +70,7 @@ class App extends React.Component{
 };
 
 ////////////////////////////////=====lab 7=============================== 
+
 getWeather = async (city) =>{
 
 // http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman
@@ -92,6 +92,7 @@ this.setState({
 // console.log(this.state.weather);
 
 };
+
 /////////////////////////
   render(){
     // console.log(this.state.weather)
