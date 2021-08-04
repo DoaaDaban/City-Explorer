@@ -7,6 +7,8 @@ import {Button} from 'react-bootstrap';
 import axios from 'axios';
 import './App.css';
 
+import Map from './Map';
+import Weather from './Weather';
 
 class App extends React.Component{
 
@@ -17,80 +19,82 @@ class App extends React.Component{
      displayName :'',
      lat :'',
      lon :'',
-     showMap:false,
      errMsg: 'Unable to geocode',
-     displayErr:false,
-     city:'',
-     weatherStrings: [],
-     weatherError: false,
-     weatherText: "",
-
+     //city:'',
+     displayErr: false,
+     showMap: false,
+     showCard: false,
+     weather :[],
+   
     }
   }
 
   getLocationData = async(event)=>{
     event.preventDefault();
 
-   let cityName= event.target.cityN.value; // if i was named city-name maybe ill got an error with dot notation , so i have to put target['city-name']
+   let cityName= event.target.city.value; // if i was named city-name maybe ill got an error with dot notation , so i have to put target['city-name']
 
   
-  //  console.log(cityName);
+    console.log(cityName);
+
+  // https://us1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=amman&format=json
+  console.log(process.env);
 
   let URL=`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${cityName}&format=json`;
+
+  console.log(URL);
 
   try{
      
   let locResult = await axios.get(URL);  // send req to locationIQ API
-  // console.log(locResult.data[0].display_name, locResult.data[0].type);
+   console.log(locResult.data[0].display_name, locResult.data[0].type);
    
    this.setState({
      displayName : locResult.data[0].display_name,
      lat : locResult.data[0].lat,
      lon: locResult.data[0].lon,
      showMap: true,
+     displayErr: false,
+     showCard: true
  
    })
   }
 
   catch{
     this.setState({
-      // displayMap:false,
-      displayErr:true,
-
+       showMap: false,
+        displayErr: true,
+        showCard: false
     })
   }
-  this.getWeather();
+  this.getWeather(cityName);
 };
-////////////////////////////////=====lab 7=============================== 
-getWeather = async () =>{
 
-// http://localhost:3001/weather?lat= &lon= &searchQuery=amman
-let URL= `http://localhost:3001/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${this.state.cityName}`;
+////////////////////////////////=====lab 7=============================== 
+getWeather = async (city) =>{
+
+// http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman
+let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${city}`;
+
+console.log(URL);
 
 let weatherData= await axios.get(URL);
 
-let arrayOfStrings = weatherData.data.map((element) => {
-  return `The Date is : ${element.date} and the description is : ${element.description}`;
-});
+console.log(weatherData);
 
-try{
-  this.setState({
-    weather: weatherData.data,
-    weatherStrings: arrayOfStrings,
-  });
-}
+// let arrayOfStrings = weatherData.data.map((element) => {
+//   return `The Date is : ${element.date} and the description is : ${element.description}`;
+// });
 
-catch (err) {
-  console.log(err);
-      this.setState({
-        weatherError: true,
-        weatherText: "There is an Error",
-      });
-}
+this.setState({
+  weather :weatherData.data
+})
+// console.log(this.state.weather);
 
 };
 /////////////////////////
   render(){
+    // console.log(this.state.weather)
     return(
       <>
       <div>
@@ -108,7 +112,7 @@ catch (err) {
       <Form.Label htmlFor="inlineFormInputName" visuallyHidden>
         Name
       </Form.Label>
-      <Form.Control id="inlineFormInputName" placeholder="Enter City" name='cityN' />
+      <Form.Control id="inlineFormInputName" placeholder="Enter City" name='city' />
     </Col>
     <Col xs="auto" className="my-1">
       <Button type="submit">Explore</Button>
@@ -116,43 +120,29 @@ catch (err) {
   </Row>
 </Form>
 
-<p>
-{this.state.displayName}
-</p>
 
-<p>
-lat : {this.state.lat}
-</p>
-
-<p>
-Lon : {this.state.lon}
-</p>
-
-{
+{/* {
   this.state.showMap && // (false && 'doaa') >>> the truthy value (doaa) //  (true && 'doaa') >>> true %% with the same that order 
 <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.e997da4c61621084f545d56f650156b1&center=${this.state.lat},${this.state.lon}& zoom=18`} alt="map"/>
-}
+} */}
 
-{
+{/* {
   this.state.displayErr && this.state.errMsg
-}
+} */}
 
-{!this.state.weatherError ? (
-          <Row className="mb-4">
-            <Row>
-              <h3>The Weather Status :</h3>
-            </Row>
-            <Col>
-              <h2>{this.state.weatherStrings[0]}</h2>
-              <h2>{this.state.weatherStrings[1]}</h2>
-              <h2>{this.state.weatherStrings[2]}</h2>
-            </Col>
-          </Row>
-        ) : (
-          <>
-            <h1>Error:{this.state.weatherText}</h1>
-          </>
-        )}
+<Map
+          displayName={this.state.displayName}
+          lon={this.state.lon}
+          lat={this.state.lat}
+          showMap={this.state.showMap}
+          displayErr={this.state.displayErr}
+          errorMsg={this.state.errorMsg}
+          showCard={this.state.showCard}
+
+        />
+
+<Weather showCard= {this.state.showCard} weather={this.state.weather} ></Weather>
+
 <p>
 &copy;Doa'a Daban
 </p>

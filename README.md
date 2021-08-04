@@ -117,3 +117,12 @@ Actual time needed to complete: _8h____
 
 my deployed link >>
 city-exp-app.netlify.app
+
+
+.env content :
+
+REACT_APP_KEY = pk.e997da4c61621084f545d56f650156b1
+
+REACT_APP_SERVER_URL = http://localhost:3001
+
+img_url=https://image.tmdb.org/t/p/w500
