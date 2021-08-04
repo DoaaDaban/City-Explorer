@@ -9,6 +9,7 @@ import './App.css';
 
 import Map from './Map';
 import Weather from './Weather';
+import Movies from './Movies';
 
 class App extends React.Component{
 
@@ -24,74 +25,126 @@ class App extends React.Component{
      showMap: false,
      showCard: false,
      weather :[],
+     movies :[],
    
     }
   }
 
-  getLocationData = async(event)=>{
-    event.preventDefault();
+//   getLocationData = async(event)=>{
+//     event.preventDefault();
 
-   let cityName= event.target.city.value; // if i was named city-name maybe ill got an error with dot notation , so i have to put target['city-name']
+//    let cityName= event.target.city.value; // if i was named city-name maybe ill got an error with dot notation , so i have to put target['city-name']
 
   
-    console.log(cityName);
+//     console.log(cityName);
 
-  // https://us1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=amman&format=json
-  console.log(process.env);
+//   // https://us1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=amman&format=json
+//   console.log(process.env);
 
-  let URL=`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${cityName}&format=json`;
+//   let URL=`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${cityName}&format=json`;
 
-  console.log(URL);
+//   console.log(URL);
 
-  try{
+//   try{
      
-  let locResult = await axios.get(URL);  // send req to locationIQ API
-   console.log(locResult.data[0].display_name, locResult.data[0].type);
+//   let locResult = await axios.get(URL);  // send req to locationIQ API
+//    console.log(locResult.data[0].display_name, locResult.data[0].type);
    
-   this.setState({
-     displayName : locResult.data[0].display_name,
-     lat : locResult.data[0].lat,
-     lon: locResult.data[0].lon,
-     showMap: true,
-     displayErr: false,
-     showCard: true
+//    this.setState({
+//      displayName : locResult.data[0].display_name,
+//      lat : locResult.data[0].lat,
+//      lon: locResult.data[0].lon,
+//      showMap: true,
+//      displayErr: false,
+//      showCard: true
  
-   })
-  }
+//    })
+//   }
 
-  catch{
+//   catch{
+//     this.setState({
+//        showMap: false,
+//         displayErr: true,
+//         showCard: false
+//     })
+//   }
+//   this.getWeather(cityName);
+// };
+
+// //=================
+
+getLocationData = async (event) => {
+  event.preventDefault();
+  const city = event.target.city.value; 
+
+    
+  // https://eu1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=amman&format=json
+  const URL = `https://eu1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=${city}&format=json`;
+  
+  try {
+
+    let locationResult = await axios.get(URL)
     this.setState({
-       showMap: false,
-        displayErr: true,
-        showCard: false
+      displayName: locationResult.data[0].display_name,
+      lon: locationResult.data[0].lon,
+      lat: locationResult.data[0].lat,
+      showMap: true,
+      displayErr: false,
+      showCard: true
+    }
+)
+
+const urlServer = `http://localhost:3001/getWeather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${city}`
+    let weatherResult = await axios.get(urlServer)
+    this.setState({
+      weather : weatherResult.data
+    })
+const urlMovies = `http://localhost:3001/movies?city=${city}`
+    let moviesResult = await axios.get(urlMovies)
+    this.setState({
+      movies : moviesResult.data
     })
   }
-  this.getWeather(cityName);
-};
+  catch {
+    this.setState({
+      showMap: false,
+      displayErr: true,
+      showCard: false
+    }
+    )
+  }
+
+  // let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=a&lon=b&searchQuery=c`;
+  let weatherData = await axios.get(URL);
+  this.setState({
+    weatherInfoArr :weatherData.data
+  })
+   console.log(weatherData);
+}
 
 ////////////////////////////////=====lab 7=============================== 
 
-getWeather = async (city) =>{
+// getWeather = async (city) =>{
 
-// http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman
-let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${city}`;
+// // http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman
+// let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${city}`;
 
-console.log(URL);
+// console.log(URL);
 
-let weatherData= await axios.get(URL);
+// let weatherData= await axios.get(URL);
 
-console.log(weatherData);
+// console.log(weatherData);
 
-// let arrayOfStrings = weatherData.data.map((element) => {
-//   return `The Date is : ${element.date} and the description is : ${element.description}`;
-// });
+// // let arrayOfStrings = weatherData.data.map((element) => {
+// //   return `The Date is : ${element.date} and the description is : ${element.description}`;
+// // });
 
-this.setState({
-  weather :weatherData.data
-})
-// console.log(this.state.weather);
+// this.setState({
+//   weather :weatherData.data
+// })
+// // console.log(this.state.weather);
 
-};
+// };
 
 /////////////////////////
   render(){
@@ -131,6 +184,7 @@ this.setState({
   this.state.displayErr && this.state.errMsg
 } */}
 
+
 <Map
           displayName={this.state.displayName}
           lon={this.state.lon}
@@ -144,6 +198,7 @@ this.setState({
 
 <Weather showCard= {this.state.showCard} weather={this.state.weather} ></Weather>
 
+<Movies showCard= {this.state.showCard} movies={this.state.movies} ></Movies>
 <p>
 &copy;Doa'a Daban
 </p>
