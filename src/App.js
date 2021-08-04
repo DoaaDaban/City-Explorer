@@ -94,12 +94,12 @@ getLocationData = async (event) => {
     }
 )
 
-const urlServer = `http://localhost:3001/getWeather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${city}`
+const urlServer = `${process.env.REACT_APP_SERVER_URL}/getWeather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${city}`
     let weatherResult = await axios.get(urlServer)
     this.setState({
       weather : weatherResult.data
     })
-const urlMovies = `http://localhost:3001/movies?city=${city}`
+const urlMovies = `${process.env.REACT_APP_SERVER_URL}/movies?city=${city}`
     let moviesResult = await axios.get(urlMovies)
     this.setState({
       movies : moviesResult.data
