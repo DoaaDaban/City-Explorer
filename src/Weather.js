@@ -4,13 +4,22 @@ import Card from 'react-bootstrap/Card'
 
 class Weather extends React.Component {
 
+    // constructor(props){
+    // super(props);
+
+    //     this.state={
+    //        weather: this.props.weather
+    //     }
+    // }
+
     render() {
+        console.log(this.props);
         return (
             <>
                 {
                     this.props.showCard &&
                     this.props.weather.map(element => {
-                        return (<Card style={{ border: 'groove', width: '650px' }} >
+                        return (<Card style={{ border: 'groove', width: '500px' }} >
                             <Card.Header as="h5">
                                 {element.date}
                             </Card.Header>
@@ -21,7 +30,6 @@ class Weather extends React.Component {
                         )
                     })
                 }
-
 
             </>
         )

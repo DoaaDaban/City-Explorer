@@ -125,4 +125,6 @@ REACT_APP_KEY = pk.e997da4c61621084f545d56f650156b1
 
 REACT_APP_SERVER_URL = http://localhost:3001
 
-img_url=https://image.tmdb.org/t/p/w500
+
+
+https://610be14c9b71fae8c32277ea--amazing-liskov-f6b9b5.netlify.app/
