@@ -18,8 +18,6 @@ class Movies extends React.Component {
 
                             <Card.Img variant="top" src={element.poster_path} />
 
-                            {/* <img src={element.poster_path} alt=''/> */}
-
                             {element.vote_average}
                             {element.vote_count}
                             {element.overview} 
