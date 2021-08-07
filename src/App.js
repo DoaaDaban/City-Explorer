@@ -30,56 +30,16 @@ class App extends React.Component{
     }
   }
 
-//   getLocationData = async(event)=>{
-//     event.preventDefault();
 
-//    let cityName= event.target.city.value; // if i was named city-name maybe ill got an error with dot notation , so i have to put target['city-name']
-
-  
-//     console.log(cityName);
-
-//   // https://us1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=amman&format=json
-//   console.log(process.env);
-
-//   let URL=`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${cityName}&format=json`;
-
-//   console.log(URL);
-
-//   try{
-     
-//   let locResult = await axios.get(URL);  // send req to locationIQ API
-//    console.log(locResult.data[0].display_name, locResult.data[0].type);
-   
-//    this.setState({
-//      displayName : locResult.data[0].display_name,
-//      lat : locResult.data[0].lat,
-//      lon: locResult.data[0].lon,
-//      showMap: true,
-//      displayErr: false,
-//      showCard: true
- 
-//    })
-//   }
-
-//   catch{
-//     this.setState({
-//        showMap: false,
-//         displayErr: true,
-//         showCard: false
-//     })
-//   }
-//   this.getWeather(cityName);
-// };
-
-// //=================
+//=================
 
 getLocationData = async (event) => {
   event.preventDefault();
   const city = event.target.city.value; 
 
     
-  // https://eu1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=amman&format=json
-  const URL = `https://eu1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=${city}&format=json`;
+  // https://eu1.locationiq.com/v1/search.php?key=pk.4c3005b1826605a4f7ba622e6e59cb39&q=amman&format=json
+  const URL = `https://eu1.locationiq.com/v1/search.php?key=pk.4c3005b1826605a4f7ba622e6e59cb39&q=${city}&format=json`;
   
   try {
 
