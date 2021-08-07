@@ -31,7 +31,7 @@ class App extends React.Component{
   }
 
 
-//=================
+//===============================================lab7&8===========================================================
 
 getLocationData = async (event) => {
   event.preventDefault();
@@ -81,39 +81,11 @@ const urlMovies = `${process.env.REACT_APP_SERVER_URL}/movies?city=${city}`
     )
   }
 
-  // let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=a&lon=b&searchQuery=c`;
-  // let weatherData = await axios.get(URL);
-  // this.setState({
-  //   weather :weatherData.data
-  // })
-  //  console.log(weatherData);
+  
 }
 
-////////////////////////////////=====lab 7=============================== 
 
-// getWeather = async (city) =>{
-
-// // http://localhost:3001/weather?lat=31.9515694&lon=35.9239625&searchQuery=Amman
-// let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${city}`;
-
-// console.log(URL);
-
-// let weatherData= await axios.get(URL);
-
-// console.log(weatherData);
-
-// // let arrayOfStrings = weatherData.data.map((element) => {
-// //   return `The Date is : ${element.date} and the description is : ${element.description}`;
-// // });
-
-// this.setState({
-//   weather :weatherData.data
-// })
-// // console.log(this.state.weather);
-
-// };
-
-/////////////////////////
+//=======================================================================================================
   render(){
     // console.log(this.state.weather)
     return(
@@ -141,15 +113,6 @@ const urlMovies = `${process.env.REACT_APP_SERVER_URL}/movies?city=${city}`
   </Row>
 </Form>
 
-
-{/* {
-  this.state.showMap && // (false && 'doaa') >>> the truthy value (doaa) //  (true && 'doaa') >>> true %% with the same that order 
-<img src={`https://maps.locationiq.com/v3/staticmap?key=pk.e997da4c61621084f545d56f650156b1&center=${this.state.lat},${this.state.lon}& zoom=18`} alt="map"/>
-} */}
-
-{/* {
-  this.state.displayErr && this.state.errMsg
-} */}
 
 
 <Map
