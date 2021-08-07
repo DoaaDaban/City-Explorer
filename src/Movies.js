@@ -5,6 +5,14 @@ import Card from 'react-bootstrap/Card'
 
 class Movies extends React.Component {
 
+    constructor(props){
+        super(props);
+    
+            this.state={
+                movies: this.props.movies
+            }
+        }
+
     render() {
         return (
             <>

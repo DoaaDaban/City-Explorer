@@ -78,8 +78,8 @@ getLocationData = async (event) => {
   const city = event.target.city.value; 
 
     
-  // https://eu1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=amman&format=json
-  const URL = `https://eu1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=${city}&format=json`;
+  // https://eu1.locationiq.com/v1/search.php?key=pk.4c3005b1826605a4f7ba622e6e59cb39&q=amman&format=json
+  const URL =`https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${city}&format=json`;
   
   try {
 
@@ -99,6 +99,11 @@ const urlServer = `${process.env.REACT_APP_SERVER_URL}/getWeather?lat=${this.sta
     this.setState({
       weather : weatherResult.data
     })
+
+    console.log(this.state.weather);
+    
+    console.log(weatherResult.data);
+
 const urlMovies = `${process.env.REACT_APP_SERVER_URL}/movies?city=${city}`
     let moviesResult = await axios.get(urlMovies)
     this.setState({
@@ -115,11 +120,11 @@ const urlMovies = `${process.env.REACT_APP_SERVER_URL}/movies?city=${city}`
   }
 
   // let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=a&lon=b&searchQuery=c`;
-  let weatherData = await axios.get(URL);
-  this.setState({
-    weatherInfoArr :weatherData.data
-  })
-   console.log(weatherData);
+  // let weatherData = await axios.get(URL);
+  // this.setState({
+  //   weather :weatherData.data
+  // })
+  //  console.log(weatherData);
 }
 
 ////////////////////////////////=====lab 7=============================== 
@@ -195,7 +200,6 @@ const urlMovies = `${process.env.REACT_APP_SERVER_URL}/movies?city=${city}`
           showCard={this.state.showCard}
 
         />
-
 <Weather showCard= {this.state.showCard} weather={this.state.weather} ></Weather>
 
 <Movies showCard= {this.state.showCard} movies={this.state.movies} ></Movies>
