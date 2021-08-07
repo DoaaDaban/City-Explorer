@@ -36,7 +36,7 @@ class App extends React.Component{
   
     console.log(cityName);
 
-  // https://us1.locationiq.com/v1/search.php?key=pk.e997da4c61621084f545d56f650156b1&q=amman&format=json
+  // https://us1.locationiq.com/v1/search.php?key=pk.4c3005b1826605a4f7ba622e6e59cb39&q=amman&format=json
   console.log(process.env);
 
   let URL=`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${cityName}&format=json`;
